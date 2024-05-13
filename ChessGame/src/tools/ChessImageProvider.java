@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import model.Couleur;
+import model.Echiquier;
 
 /**
  * @author francoise.perrin
@@ -55,4 +56,7 @@ public class ChessImageProvider {
 		System.out.println(ChessImageProvider.getImageFile("Cavalier", Couleur.BLANC));
 	}
 
+	
+
+	
 }

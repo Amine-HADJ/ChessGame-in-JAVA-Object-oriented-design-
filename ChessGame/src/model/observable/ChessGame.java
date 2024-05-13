@@ -9,6 +9,7 @@ import model.BoardGames;
 import model.Coord;
 import model.Couleur;
 import model.Echiquier;
+import model.PieceIHM;
 
 
 /**
@@ -87,6 +88,18 @@ public class ChessGame extends Observable implements BoardGames{
 
 	public Couleur getPieceColor(int x, int y){
 		return echiquier.getPieceColor(x, y);
+	}
+
+	public String getPieceType(int x, int y){
+		List <PieceIHM> list = echiquier.getPiecesIHM();
+		String type = null;
+		for (PieceIHM pieceIHM : list) {
+			if (pieceIHM.getList().contains(new Coord(x, y))) {
+				type = pieceIHM.getTypePiece();
+				
+			}
+		}
+		return type;
 	}
 
 	

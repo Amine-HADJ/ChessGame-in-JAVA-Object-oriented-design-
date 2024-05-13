@@ -29,4 +29,8 @@ public interface ChessGameControlers {
 	 */
 	public boolean isPlayerOK(Coord initCoord);
 
+    public Object getPieceColor(int i, int j);
+
+    public String getPieceType(int i, int j);
+
 }
