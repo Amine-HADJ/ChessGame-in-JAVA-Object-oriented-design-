@@ -6,6 +6,8 @@ import java.util.Map;
 import model.Couleur;
 import model.Echiquier;
 
+
+
 /**
  * @author francoise.perrin
  * Inspiration Jacques SARAYDARYAN, Adrien GUENARD
@@ -44,9 +46,14 @@ public class ChessImageProvider {
 		key = pieceType + pieceCouleur.name();
 		value = mapImage.get(key);
 		File g=new File("");
-		ret = g.getAbsolutePath()+"\\images\\" + value;
+		ret = g.getAbsolutePath()+"/images/" + value;
+		// si on a un espace dans le nom d'un dossier on insere \ devant l'espace
+		// ret = ret.replace(" ", "\\ ");
+		
 		return ret;		
 	}
+
+	
 
 	/**
 	 * Test unitaires
@@ -54,6 +61,7 @@ public class ChessImageProvider {
 	 */
 	public static void main(String[] args) {
 		System.out.println(ChessImageProvider.getImageFile("Cavalier", Couleur.BLANC));
+		 
 	}
 
 	

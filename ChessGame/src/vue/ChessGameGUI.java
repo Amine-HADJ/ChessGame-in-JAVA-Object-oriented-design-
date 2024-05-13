@@ -163,12 +163,13 @@ public class ChessGameGUI extends JFrame implements MouseListener, MouseMotionLi
 
 				// sauvegarde des coordonn�es logiques du carr�
 				// sera utile lors des d�placements de pi�ces					
-				this.mapSquareCoord.put(square, new Coord(j, i));
-				tab2DJPanel[j][i] = square;
+				this.mapSquareCoord.put(square, new Coord(i, j));
+				tab2DJPanel[i][j] = square;
 
 				// ajout de l'image de pi�ce sur le carr�
 				if (pieceGuiLabel != null) {
 					square.add(pieceGuiLabel);
+					System.out.println("pieceGuiLabel : " + pieceGuiLabel);
 
 				}
 			}
@@ -324,29 +325,37 @@ public class ChessGameGUI extends JFrame implements MouseListener, MouseMotionLi
 	 * dans la classe m�tier Echiquier
 	 */
 	
-	@Override
-    public void update(Observable arg0, Object arg1) {
-        List<PieceIHM> piecesIHM = (List<PieceIHM>) arg1;
+	 @Override
+	 public void update(Observable arg0, Object arg1) {
+		// r�cup�ration des pi�ces � afficher
+		List<PieceIHM> pieces = (List<PieceIHM>) arg1;
 
-        // Parcourir la liste des pièces mises à jour
-        for (PieceIHM pieceIHM : piecesIHM) {
-            // Récupérer les coordonnées de chaque pièce
-            List<Coord> coords = pieceIHM.getList();
-            Coord coord = coords.get(0);
-            int x = coord.x;
-            int y = coord.y;
+		// on supprime toutes les pi�ces du damier
+		for (int i = 0; i<8; i++){
+			for (int j = 0; j<8; j++) {
+				tab2DJPanel[i][j].removeAll();
+			}
+		}
 
-            // Mettre à jour l'affichage de la pièce sur l'interface graphique
-            JPanel square = tab2DJPanel[x][y];
-            square.removeAll();
-            JLabel updatedPieceGuiLabel = newImage(x, y);
-            if (updatedPieceGuiLabel != null) {
-                square.add(updatedPieceGuiLabel);
-            }
-            square.revalidate();
-            square.repaint();
-        }
-    }
+		// on remet les pi�ces � leurs nouvelles positions
+		for (PieceIHM piece : pieces) {
+			for (Coord coord : piece.getList()) {
+				JLabel pieceGuiLabel = new JLabel(
+						new ImageIcon(ChessImageProvider.getImageFile(
+								piece.getTypePiece(), piece.getCouleur())));
+				tab2DJPanel[coord.x][coord.y].add(pieceGuiLabel);
+			}
+		}
+
+
+		// on r�affiche la fen�tre
+		this.chessBoardGuiContainer.revalidate();
+		this.chessBoardGuiContainer.repaint();
+		System.out.println("update");
+
+
+		
+	 }
     
 	
 
